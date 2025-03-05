@@ -11,7 +11,7 @@ import { useCart } from "../context/CartContext";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [openMenu, setOpenMenu] = useState(true);
+  const [openMenu, setOpenMenu] = useState(false);
   const [user, setUser] = useState(null);
 
   const { cartItems } = useCart();
@@ -54,7 +54,7 @@ function Navbar() {
   return (
     <div className="flex justify-between items-center py-4 pt-5">
       <div>
-        <img src={logo} alt="logo" />
+        <img src={logo} alt="logo" className="w-28" />
       </div>
 
       {/* Desktop Menu */}
@@ -172,7 +172,7 @@ function Navbar() {
       {/* Mobile Menu */}
       <div
         className={`md:hidden block fixed top-0 left-0 w-full h-full bg-white z-50 transform transition-transform duration-300 ${
-          isOpen ? "translate-x-full" : "-translate-x-0"
+          isOpen ? "-translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex justify-end p-4">
