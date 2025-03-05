@@ -54,7 +54,7 @@ function Navbar() {
   return (
     <div className="flex justify-between items-center py-4 pt-5">
       <div>
-        <img src={logo} alt="logo" className="w-28" />
+        <img src={logo} alt="logo" className="md:w-28 w-24" />
       </div>
 
       {/* Desktop Menu */}
