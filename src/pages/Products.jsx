@@ -85,9 +85,12 @@ function Products() {
           <h2 className="text-2xl outfit-regular text-gray-800">
             {product.name}
           </h2>
-          <p className="text-xl outfit-regular text-gray-800">
-            ₹{product.price}
-          </p>
+          <div className="text-gray-800 mt-2 outfit-light">
+            <span className="line-through text-red-400">
+              ${product.price + 200}
+            </span>{" "}
+            &nbsp; ${product.price}
+          </div>
 
           <p>Select Size</p>
           <div className="flex gap-2">

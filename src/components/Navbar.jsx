@@ -45,10 +45,11 @@ function Navbar() {
 
   const handlelogout = () => {
     const auth = getAuth();
-    auth.signOut();
-    setOpenMenu(true);
-    setUser(null);
-    navigate("/login");
+    auth.signOut().then(() => {
+      setOpenMenu(false); // Close menu on logout
+      setUser(null);
+      navigate("/login");
+    });
   };
 
   return (
@@ -137,12 +138,8 @@ function Navbar() {
           </Link>
           <button onClick={handleOpenMenu}>
             <img src={profile} alt="profile" className="w-4" />
-            {user && (
-              <div
-                className={`w-28 z-10 -translate-x-24 bg-white transition-all shadow-md overflow-hidden duration-300 absolute ${
-                  openMenu ? "h-0" : "h-24"
-                }`}
-              >
+            {user && openMenu && (
+              <div className="w-28 z-10 -translate-x-24 bg-white transition-all shadow-md overflow-hidden duration-300 absolute">
                 <div className="flex flex-col gap-y-2 p-4">
                   <Link
                     to="/ordersplaced"
