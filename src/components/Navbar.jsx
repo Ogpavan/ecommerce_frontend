@@ -231,6 +231,19 @@ function Navbar() {
                 Contact
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/cart"
+                onClick={toggleMenu}
+                className={({ isActive }) =>
+                  isActive
+                    ? "group relative after:absolute after:left-0 after:bottom-0 after:w-full after:h-[2px] after:bg-black after:scale-x-100 after:transition-transform after:duration-300"
+                    : "group relative text-gray-800 after:absolute after:left-0 after:bottom-0 after:w-full after:h-[2px] after:bg-black after:scale-x-0 after:transition-transform after:duration-300 group-hover:after:scale-x-100"
+                }
+              >
+                Cart
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>
