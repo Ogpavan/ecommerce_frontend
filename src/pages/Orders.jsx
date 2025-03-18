@@ -52,20 +52,18 @@ const Orders = () => {
 
   const handlePayment = async () => {
     const isScriptLoaded = await loadRazorpayScript();
-
     if (!isScriptLoaded) {
       alert("Failed to load Razorpay SDK. Check your internet connection.");
       return;
     }
 
-    // Create an order on the backend, passing all details
     const orderData = await fetch(
       `${import.meta.env.VITE_API_URL}/api/create-order`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          amount: total * 100, // Amount in paise
+          amount: total * 100,
           clientDetails,
           cartItems,
           userId,
@@ -74,7 +72,7 @@ const Orders = () => {
     ).then((res) => res.json());
 
     const options = {
-      key: "rzp_test_GkuBoY156QroSM", // Replace with your Razorpay Key ID
+      key: "rzp_test_GkuBoY156QroSM",
       amount: orderData.amount,
       currency: orderData.currency,
       name: "Your Shop",
@@ -82,7 +80,6 @@ const Orders = () => {
       order_id: orderData.orderId,
       handler: function (response) {
         alert("Payment successful!");
-
         console.log(response);
       },
       prefill: {
@@ -90,9 +87,7 @@ const Orders = () => {
         email: clientDetails.email,
         contact: "9999999999",
       },
-      theme: {
-        color: "#3399cc",
-      },
+      theme: { color: "#3399cc" },
     };
 
     const paymentObject = new window.Razorpay(options);
@@ -100,39 +95,36 @@ const Orders = () => {
   };
 
   return (
-    <div>
-      <div className="flex justify-between p-20">
-        <div>
-          <h1 className="uppercase md:text-2xl outfit-bold flex items-center pb-10">
-            <span className="text-gray-400 mr-2">Delivery</span> Information
-            <hr className="w-[70px] bg-black ml-2 h-[3px]" />
+    <div className="container mx-auto px-4 py-10">
+      <div className="flex flex-col lg:flex-row gap-10">
+        <div className="w-full lg:w-2/3">
+          <h1 className="uppercase text-xl md:text-2xl font-bold pb-6">
+            Delivery Information
           </h1>
-          <form>
-            <div className="flex gap-x-2">
-              <input
-                type="text"
-                name="firstName"
-                value={clientDetails.firstName}
-                onChange={handleInputChange}
-                placeholder="First Name"
-                className="w-full border border-gray-300 p-2 mb-2 rounded-md"
-              />
-              <input
-                type="text"
-                name="lastName"
-                value={clientDetails.lastName}
-                onChange={handleInputChange}
-                placeholder="Last Name"
-                className="w-full border border-gray-300 p-2 mb-2 rounded-md"
-              />
-            </div>
+          <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input
+              type="text"
+              name="firstName"
+              value={clientDetails.firstName}
+              onChange={handleInputChange}
+              placeholder="First Name"
+              className="border border-gray-300 p-2 rounded-md"
+            />
+            <input
+              type="text"
+              name="lastName"
+              value={clientDetails.lastName}
+              onChange={handleInputChange}
+              placeholder="Last Name"
+              className="border border-gray-300 p-2 rounded-md"
+            />
             <input
               type="email"
               name="email"
               value={clientDetails.email}
               onChange={handleInputChange}
               placeholder="Email"
-              className="w-full border border-gray-300 p-2 mb-2 rounded-md"
+              className="border border-gray-300 p-2 rounded-md col-span-1 md:col-span-2"
             />
             <input
               type="text"
@@ -140,52 +132,46 @@ const Orders = () => {
               value={clientDetails.street}
               onChange={handleInputChange}
               placeholder="Street"
-              className="w-full border border-gray-300 p-2 mb-2 rounded-md"
+              className="border border-gray-300 p-2 rounded-md col-span-1 md:col-span-2"
             />
-            <div className="flex gap-x-2">
-              <input
-                type="text"
-                name="city"
-                value={clientDetails.city}
-                onChange={handleInputChange}
-                placeholder="City"
-                className="w-full border border-gray-300 p-2 mb-2 rounded-md"
-              />
-              <input
-                type="text"
-                name="state"
-                value={clientDetails.state}
-                onChange={handleInputChange}
-                placeholder="State"
-                className="w-full border border-gray-300 p-2 mb-2 rounded-md"
-              />
-            </div>
-            <div className="flex gap-x-2">
-              <input
-                type="text"
-                name="zipcode"
-                value={clientDetails.zipcode}
-                onChange={handleInputChange}
-                placeholder="Zipcode"
-                className="w-full border border-gray-300 p-2 mb-2 rounded-md"
-              />
-              <input
-                type="text"
-                name="country"
-                value={clientDetails.country}
-                onChange={handleInputChange}
-                placeholder="Country"
-                className="w-full border border-gray-300 p-2 mb-2 rounded-md"
-              />
-            </div>
+            <input
+              type="text"
+              name="city"
+              value={clientDetails.city}
+              onChange={handleInputChange}
+              placeholder="City"
+              className="border border-gray-300 p-2 rounded-md"
+            />
+            <input
+              type="text"
+              name="state"
+              value={clientDetails.state}
+              onChange={handleInputChange}
+              placeholder="State"
+              className="border border-gray-300 p-2 rounded-md"
+            />
+            <input
+              type="text"
+              name="zipcode"
+              value={clientDetails.zipcode}
+              onChange={handleInputChange}
+              placeholder="Zipcode"
+              className="border border-gray-300 p-2 rounded-md"
+            />
+            <input
+              type="text"
+              name="country"
+              value={clientDetails.country}
+              onChange={handleInputChange}
+              placeholder="Country"
+              className="border border-gray-300 p-2 rounded-md"
+            />
           </form>
         </div>
-        <div className="md:w-1/3 md:mt-16">
-          <h1 className="uppercase md:text-2xl outfit-bold flex items-center pb-10">
-            <span className="text-gray-400 mr-2">Cart</span> Totals{" "}
-            <hr className="w-[70px] bg-black ml-2 h-[3px]" />
+        <div className="w-full lg:w-1/3">
+          <h1 className="uppercase text-xl md:text-2xl font-bold pb-6">
+            Cart Totals
           </h1>
-
           <hr />
           <div className="flex justify-between py-2">
             <span>Subtotal:</span>
@@ -203,7 +189,7 @@ const Orders = () => {
           </div>
           <button
             onClick={handlePayment}
-            className="  border w-full   bg-black text-white px-4 py-2 rounded mt-4  "
+            className="w-full bg-black text-white px-4 py-2 rounded mt-4"
           >
             Proceed to Payment
           </button>
